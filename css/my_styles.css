@@ -1,0 +1,65 @@
+.text-danger {
+	color: #CF0000;}
+
+.nav-pills > li > a {
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	color: white;
+}
+
+.nav-pills > li > a:hover {
+	background-color: #4cae4c;
+	border-color: #4cae4c;
+	color: white;
+}
+
+.my_invisible {
+	display: none;
+}
+
+.mk_right {
+	text-align: right;
+}
+
+.mk_row {
+	margin-bottom: 10px;
+}
+
+.mk_margin_bottom {
+	padding-bottom: 40px;
+	border-bottom: 1px solid #cccccc;
+	margin-bottom: 10px;
+	
+}
+
+.mk_btn_link, .mk_btn_link:hover {
+	text-decoration: none;
+	color: white;
+}
+
+.mk_btn {
+	width: 190px;
+}
+
+.table-nonfullwidth {
+	width: auto !important;
+}
+
+#captcha {
+	margin: 3px;
+}
+
+body {
+	margin: 10px;}
+
+table th, table td { 
+	font-size: 14px;
+}
+
+dt.mk_dt {
+	width: 260px;
+}
+
+dd.mk_dd {
+	margin-left: 280px;
+}

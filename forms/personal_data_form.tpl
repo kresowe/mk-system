@@ -3,13 +3,13 @@ echo "<form action=" . htmlspecialchars($_SERVER["PHP_SELF"]) . " method=\"post\
 ?>
 
 <table class="table table-striped table-condensed">
-<tr><td>Imię/ First name/ Pavarde/ Имя:</td>
+<tr><td>Imię/ First name/ Vardas / Имя:</td>
 	<td><input type="text" name="name" id="name" value= <?php echo "\"" . $name . "\""; ?> >
 		<span class="text-danger">*</span><span class="text-danger"> <?php echo $err_name; ?> </span>
 	</td>
 </tr>
 
-<tr><td>Nazwisko/ Last name/ Vardas/ Фамилия:</td>
+<tr><td>Nazwisko/ Last name/ Pavarde / Фамилия:</td>
 <td><input type="text" name="surname" id="surname" value= <?php echo "\"" . $surname . "\""; ?> >
 <span class="text-danger">*</span>
 <span class="text-danger"> <?php echo $err_surname; ?> </span> </td>

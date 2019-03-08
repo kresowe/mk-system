@@ -2,13 +2,13 @@
 echo "<form action=" . htmlspecialchars($_SERVER["PHP_SELF"]) . " method=\"post\" id=\"form_apply_no_login\">";
 ?>
 <table class="table table-striped table-condensed">
-<tr><td>Imię/ First name/ Pavarde/ Имя:</td>
+<tr><td>Imię/ First name/ Vardas / Имя:</td>
 	<td><input type="text" name="name" id="name" value= <?php echo "\"" . $name . "\""; ?> >
 		<span class="text-danger">*</span><span class="text-danger"> <?php echo $err_name; ?> </span>
 	</td>
 </tr>
 
-<tr><td>Nazwisko/ Last name/ Vardas/ Фамилия:</td>
+<tr><td>Nazwisko/ Last name/ Pavarde/ Фамилия:</td>
 <td><input type="text" name="surname" id="surname" value= <?php echo "\"" . $surname . "\""; ?> >
 <span class="text-danger">*</span>
 <span class="text-danger"> <?php echo $err_surname; ?> </span> </td>
@@ -228,7 +228,7 @@ for ($i = 0; $i < count($payments); $i++)
 <h4>
 <input type="checkbox" name="accept_rules" value="yes" <?php if ($accept_rules) echo "checked"; ?> 
   > Oświadczam, że akceptuję/ I accept rules
- <a href="http://maratonykresowe.pl/?page_id=3822" target="_blank">Regulamin Maratonów Kresowych</a> 
+ <a href="http://maratonykresowe.pl/?page_id=6734" target="_blank">Regulamin Maratonów Kresowych</a> 
  <span class="text-danger">*</span><span class="text-danger"> <?php echo $err_accept_rules; ?> </span>
 </h4>
  

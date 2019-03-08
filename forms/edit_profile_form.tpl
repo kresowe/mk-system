@@ -3,10 +3,10 @@ echo "<form action=\"index.php?page=edit_profile\" method=\"post\" id=\"form_edi
 ?>
 
 <table class="table table-striped table-condensed">
-<tr><td>Imię/ First name/ Pavarde/ Имя:</td>
+<tr><td>Imię/ First name/ Vardas / Имя:</td>
 	<td><?php echo $cyclist->getName(); ?> </td> <td>tego pola nie możesz edytować</td>
 </tr>
-<tr><td>Nazwisko/ Last name/ Vardas/ Фамилия:</td>
+<tr><td>Nazwisko/ Last name/ Pavarde/ Фамилия:</td>
 	<td><?php echo $cyclist->getSurname(); ?> </td> <td>tego pola nie możesz edytować</td>
 </tr>
 <tr><td>Rok urodzenia/ Year of birth/ Gimimo metai/ Год рождения:</td>

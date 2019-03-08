@@ -24,6 +24,7 @@ class Payment {
 		$distances = array(
 			'mikro' => DBGetter::getDistanceNameByAbbrev("mik"),
 			'mini' => DBGetter::getDistanceNameByAbbrev("min"),
+			'fit' => DBGetter::getDistanceNameByAbbrev("fit"),
 			'polmar' => DBGetter::getDistanceNameByAbbrev("pol"),
 			'maraton' => DBGetter::getDistanceNameByAbbrev("mar")
 			);
@@ -38,13 +39,14 @@ class Payment {
 
 			if ($distance == $distances['mikro']){
 				$to_print .= self::printToPay(MIKRO_NOR);
-			}
-			if ($distance == $distances['mini']){
+			} else if ($distance == $distances['mini']){
 				$to_print .= self::printToPay(MINI_NOR);
-			}
-			else if($distance == $distances['polmar'] || $distance == $distances['maraton']){
+			} else if ($distance == $distances['polmar'] || $distance == $distances['maraton']){
 				$to_print .= self::printToPay(MAR_NOR);
+			} else if ($distance == $distances['fit']) {
+				$to_print .= self::printToPay(FIT_NOR);
 			}
+
 			if ($distance != $distances['mikro']){
 				$to_print .= self::printFirstStartMessage();
 			}
@@ -92,6 +94,17 @@ class Payment {
 					$to_print .= self::printLatePayMessage($to_pay_after);
 				}
 			}
+			// fit
+			else if ($distance == $distances['fit']){
+				if ($date_difference >= DNI_PRZED_KONIEC_ULGI) {
+					$to_print .= self::printInAdvancePayMessage($date_difference, 
+						DNI_PRZED_KONIEC_ULGI, FIT_ULG, FIT_NOR);
+					$to_print .= self::printTransferInstruction();
+				}
+				else {
+					$to_print .= self::printLatePayMessage(MIKRO_NOR);
+				}
+			}
 
 			if ($distance != $distances['mikro']) {
 				$to_print .= self::printFirstStartMessage();
@@ -101,11 +114,11 @@ class Payment {
 			}
 		}
 
-		//Niemenczyn - zyczenia Mariana
-		else if (($country == "LTU" || $country == 'LT') && 
-			$marathon_date == date_create('2017-05-14') && $payment_name != $payments['multi']) {
-			$to_print = self::printNemencineLtuMessage();
-		}
+		// //Niemenczyn - zyczenia Mariana
+		// else if (($country == "LTU" || $country == 'LT') && 
+		// 	$marathon_date == date_create('2017-05-14') && $payment_name != $payments['multi']) {
+		// 	$to_print = self::printNemencineLtuMessage();
+		// }
 
 		//zawodnicy z zagranicy
 		else if ($country != "POL" && $payment_name != $payments['multi']) {
@@ -114,22 +127,22 @@ class Payment {
 				//ile placa
 				if ($distance == $distances['mini']) {
 					$to_print .= self::printToPayInt(MINI_ULG, MINI_ULG_EUR);
-				}
-				else if ($distance == $distances['polmar'] || $distances['maraton']){
+				} else if ($distance == $distances['polmar'] || $distances['maraton']){
 					$to_print .= self::printToPayInt(MAR_ULG, MAR_ULG_EUR);
-				}
-				else if ($distance == $distances['mikro']){
+				} else if ($distance == $distances['fit']) {
+					$to_print .= self::printToPayInt(FIT_ULG, FIT_ULG_EUR);
+				} else if ($distance == $distances['mikro']){
 					$to_print .= self::printToPayInt(MIKRO_ULG, MIKRO_EUR);
 				}
 			}
 			else {
 				if ($distance == $distances['mini']) {
 					$to_print .= self::printLatePayMessageInt(MINI_NOR, MINI_NOR_EUR);
-				}
-				else if ($distance == $distances['polmar'] || $distances['maraton']){
+				} else if ($distance == $distances['polmar'] || $distances['maraton']){
 					$to_print .= self::printToPayInt(MAR_NOR, MAR_NOR_EUR);
-				}
-				else if ($distance == $distances['mikro']){
+				} else if ($distance == $distances['fit']) {
+					$to_print .= self::printToPayInt(FIT_NOR, FIT_NOR_EUR);
+				} else if ($distance == $distances['mikro']){
 					$to_print .= self::printToPayInt(MIKRO_NOR, MAR_NOR_EUR);
 				}
 			}
@@ -166,7 +179,7 @@ class Payment {
 	static function printCashMessageInt(){
 		$text = "<p>You can pay in cash in marathon's office in marathon's";
 		$text .= " day.</p>";
-		$text .= "<p>We advise you to pay earlier than 5 days before race next time ";
+		$text .= "<p>We advise you to pay earlier by transfer next time ";
 		$text .= "- you will get discount.</p>";
 		echo $text;
 		return $text;
@@ -226,14 +239,14 @@ class Payment {
 
 	static function printLatePayMessage($price){
 		$text = "<p>Do zapłaty " . $price;
-		$text .= " zł. Płacąc za maraton wcześniej niż 5 dni przed, załapiesz się na ceny zniżkowe!</p>";
+		$text .= " zł. Płacąc za maraton min. 7 dni przed, załapiesz się na ceny zniżkowe!</p>";
 		echo $text;
 		return $text;
 	}
 
 	static function printLatePayMessageInt($price, $price_eur){
 		$text = "<p>To pay: " . $price . "zl (" . $price_eur;
-		$text .= " EUR). We advise you to pay earlier than 5 days before race next time ";
+		$text .= " EUR). We advise you to pay at leadst 7 days before race next time ";
 		$text .= "- you will get discount.</p>";
 		echo $text;
 		return $text;
@@ -245,7 +258,7 @@ class Payment {
 			". W przypadku nie podania " . 
 			"tytułu wpłaty zostanie ona zaksięgowana na poczet najbliższego terminu " . 
 			"maratonu zgodnie z obowiązującą taryfą. Przelewów należy dokonywać na " . 
-			"minimum 3 dni przed terminem zawodów.</p>";
+			"minimum " . (string)(DNI_PRZED_KONIEC_ULGI+1). " dni przed terminem zawodów.</p>";
 		$text .= "Fundacja \"Maratony Kresowe\"<br>"; 
 		$text .= "ul. Ciołkowskiego 157<br>";
 		$text .= "15-545 Białystok<br>";
@@ -259,7 +272,7 @@ class Payment {
 		$text .= "\"Wplata na Maraton Kresowy - Suprasl\"."; 
 		$text .= " Otherwise, it will be for the ";
 		$text .= "closest marathon. Cash transfers can be done at least ";
-		$text .= "3 days before the marathon.</p>";
+		$text .= (string)(DNI_PRZED_KONIEC_ULGI+1) . " days before the marathon.</p>";
 		$text .= "Fundacja \"Maratony Kresowe\"<br>"; 
 		$text .= "ul. Ciołkowskiego 157<br>";
 		$text .= "15-545 Białystok<br>";
@@ -271,8 +284,8 @@ class Payment {
 
 	static function printLicenseMessage(){
 		$text = "<p>Jeśli masz jedną z licencji PZKol: Młodzik, Junior Młodszy, Junior, U23, Elita,";
-		$text .= " to przysługuje Ci zniżka 50%. Szczegóły w pkcie 6. w ";
-		$text .= " <a href=\"http://maratonykresowe.pl/?page_id=3822\" target=\"_blank\">regulaminie</a>";
+		$text .= " to płacisz zgofnie z tabelą opłat PZKol. Zobacz pkt. 6. ";
+		$text .= " <a href=\"http://maratonykresowe.pl/?page_id=6734\" target=\"_blank\">regulaminie</a>";
 		echo $text;
 		return $text;
 	}

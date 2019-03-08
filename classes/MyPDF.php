@@ -86,7 +86,7 @@ class MyPDF extends tFPDF
                 throw new Exception("aaNiepowodzenie przy otwarciu tymczasowego pliku. Spróbuj później!");
             flock($fp, LOCK_SH); //blokada odczytu
             
-            $this->Image(__DIR__ . '/../img/mk_logo.png',10,20, 70);
+            $this->Image(__DIR__ . '/../img/Logo_MK_2019_300.jpg',10,20, 70);
             $this->AddFont('DejaVu','','DejaVuSansCondensed.ttf',true);
             $this->AddFont('DejaVu','B','DejaVuSansCondensed-Bold.ttf',true);
             $this->SetFont('DejaVu','',18);
@@ -122,7 +122,6 @@ class MyPDF extends tFPDF
         $this->SetFont('DejaVu','',8);
         $text1 = "";
         try {
-            // echo "<p>" . __DIR__ . "/../../../mk_dane/zgloszenia/tresc.txt" . "</p>";
             if (!($fp1 = @fopen(__DIR__ . "/../../../mk_dane/zgloszenia/tresc.txt", "r")))
                 throw new Exception("ccNiepowodzenie przy otwarciu tymczasowego pliku. Spróbuj później!");
             while (($line = fgets($fp1)) !== false) 

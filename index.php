@@ -90,10 +90,8 @@ if (!isset($_SESSION["user"]) && $_SERVER["REQUEST_METHOD"] == "POST")
 		 
 if (!isset($_SESSION["user"]))
 {
+	include('templates/header.tpl');
 	?>
-	<header class="mk_margin_bottom">
-	<h1>System Maratonów Kresowych</h1>
-	</header>
 
 	<div class="container-fluid mk_margin_bottom">
 	<div class="row">
@@ -199,10 +197,9 @@ if (!isset($_SESSION["user"]))
 else
 {
 	$page->setHeader("Panel zawodnika/ Rider panel");
-	?>
-	
-	<header> <h1>System Maratonów Kresowych</h1>
-	<?php 
+ 
+	include('templates/header.tpl');
+
 	echo "<h3>" . $page->getHeader() . "</h4>";
 	 ?> 
 	</header>

@@ -77,8 +77,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['submit_personal_data'
 	// ValidateForm::validateReCaptcha($err_recaptcha, $accepted_personal_form);
 }
 
+include('templates/header.tpl');
 ?>
-<h1>System Maratonów Kresowych</h1>
 	<h3>Rejestracja/ Registration</h3>
 
 <?php

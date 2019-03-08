@@ -27,8 +27,8 @@ if (isset($_SESSION["prev_login"]))
 	}
 
 
+	include('templates/header.tpl');
 ?>
-		<h1>System Maratonów Kresowych</h1>
 		<h3>Logowanie</h3>
 		<h4>Zapomniałeś hasła?</h4>
 

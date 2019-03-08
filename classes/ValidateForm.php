@@ -265,7 +265,7 @@ class ValidateForm
 			$phone = Validating::makeSafeForSql($phone);
 			if (!Validating::validPhone($phone)) 
 			{
-				$err = "Niepoprawny format numeru telefonu.";
+				$err = "Niepoprawny format numeru telefonu. / Invalid form of phone number.";
 				$accepted = false;
 			}
 		}
@@ -303,7 +303,7 @@ class ValidateForm
 	static function validateDistance(&$distance, &$err, &$accepted) {
 		if (empty($_POST['distance']))
 		{
-			$err = "Musisz wybrać dystans.";
+			$err = "Musisz wybrać dystans. / Please choose distance.";
 			$accepted = false;
 		}
 		else
@@ -313,7 +313,7 @@ class ValidateForm
 	static function validatePayment(&$payment, &$err, &$accepted) {
 		if (empty($_POST['payment']))
 		{
-			$err = "Musisz wybrać sposób płatności.";
+			$err = "Musisz wybrać sposób płatności. / Please choose payment method.";
 			$accepted = false;
 		}
 		else
@@ -354,7 +354,7 @@ class ValidateForm
 
 			$pattern = "/^[a-zA-Z0-9\p{Cyrillic}\s\-\'\"\.ęłóąśŚŁżŻźŹćĆ]+$/";
 			if (!preg_match($pattern, $text)){
-				$err = "Nazwa drużyny zawiera niedopuszczalne znaki!";
+				$err = "Nazwa drużyny zawiera niedopuszczalne znaki! / Team name includes invalid characters!";
 				$accepted = false;
 			}
 		}
@@ -373,49 +373,52 @@ class ValidateForm
 
 	static function validateAcceptRules(&$accept_rules, &$err, &$accepted){
 		if (empty($_POST["accept_rules"])) {
-			$err = "Aby się zarejestrować na maraton musisz zaakceptować regulamin.";
+			$err = "Aby się zarejestrować na maraton musisz zaakceptować regulamin. / In order to register for marathon, you must accept rules.";
 			$accepted = false;
 		} 
 	}
 
 	static function validateOldEnough(&$distance, &$err, &$accepted, $birthyear, $sex){
-		if ($distance == DBGetter::getDistanceIdByAbbrev("mik") && $birthyear < MAX_BIRTH_YEAR_MIKRO) {
+		if ($distance == DBGetter::getDistanceIdByAbbrev("mik") && ($birthyear < MAX_BIRTH_YEAR_MIKRO || $birthyear > MINIMAL_BIRTH_YEAR) ) {
 			$accepted = false;
-			$err .= " Regulamin nie pozwala na start na Mikro osobie z tego rocznika.";
+			$err .= " Regulamin nie pozwala na start na Mikro osobie z tego rocznika. / According to rules, a person of this age can't start in Mikro.";
 		}
-		else if ($distance == DBGetter::getDistanceIdByAbbrev("min") && $birthyear >MIN_BIRTH_YEAR_MINI) {
+		else if ($distance == DBGetter::getDistanceIdByAbbrev("min") && ($birthyear >MIN_BIRTH_YEAR_MINI || $birthyear < MAX_BIRTH_YEAR_MINI) ) {
 			$accepted = false;
-			$err .= " Regulamin nie pozwala na start na Mini osobie z tego rocznika.";
+			$err .= " Regulamin nie pozwala na start na Mini osobie z tego rocznika. / According to rules, a person of this age can't start in Mini.";
+		} else if ($distance == DBGetter::getDistanceIdByAbbrev("fit") && $birthyear >MIN_BIRTH_YEAR_FIT) {
+			$accepted = false;
+			$err .= " Regulamin nie pozwala na start na Fit osobie z tego rocznika. / According to rules, a person of this age can't start in Fit.";
 		}
 		else if ($distance == DBGetter::getDistanceIdByAbbrev("pol") 
 			&& $sex == "M" 
 			&& $birthyear > MIN_BIRTH_YEAR_POLMAR_M) {
 				$accepted = false;
-				$err .= " Regulamin nie pozwala na start na Półmaratonie osobie z tego rocznika.";
+				$err .= " Regulamin nie pozwala na start na Półmaratonie osobie z tego rocznika. / According to rules, a person of this age can't start in Polmaraton.";
 		}
 		else if ($distance == DBGetter::getDistanceIdByAbbrev("pol") 
 			&& $sex == "K" 
 			&& $birthyear > MIN_BIRTH_YEAR_POLMAR_K){
 				$accepted = false;
-				$err .= " Regulamin nie pozwala na start na Półmaratonie osobie z tego rocznika.";
+				$err .= " Regulamin nie pozwala na start na Półmaratonie osobie z tego rocznika. / According to rules, a person of this age can't start in Polmaraton.";
 		}
 		else if ($distance == DBGetter::getDistanceIdByAbbrev("mar") 
 			&& $sex == "M" 
 			&& $birthyear > MIN_BIRTH_YEAR_MAR_M){
 				$accepted = false;
-				$err .= " Regulamin nie pozwala na start na Maratonie osobie z tego rocznika./";
+				$err .= " Regulamin nie pozwala na start na Maratonie osobie z tego rocznika. / According to rules, a person of this age can't start in Maraton.";
 		}
 		else if ($distance == DBGetter::getDistanceIdByAbbrev("mar") 
 			&& $sex == "K" 
 			&& $birthyear > MIN_BIRTH_YEAR_MAR_K){
 			$accepted = false;
-			$err .= " Regulamin nie pozwala na start na Maratonie osobie z tego rocznika./";
+			$err .= " Regulamin nie pozwala na start na Maratonie osobie z tego rocznika. / According to rules, a person of this age can't start in Maraton.";
 		}
 	}
 
 	static function validateNewInMk(&$new_in_mk, &$err, &$accepted) {
 		if (empty($_POST["new_in_mk"])) {
-			$err = "Musisz zaznaczyć odpowiedź./ Select answet";
+			$err = "Musisz zaznaczyć odpowiedź./ Select answer";
 			$accepted = false;
 		} 
 		else{

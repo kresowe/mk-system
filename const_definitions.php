@@ -1,5 +1,5 @@
 <?php
-define("MAXIMAL_BIRTH_YEAR", 2015);
+require_once("contents/const_vars_apply.php");
 $voivodeships = array(
 		'dolnośląskie',
 		'kujawsko-pomorskie',

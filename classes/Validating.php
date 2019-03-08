@@ -24,7 +24,7 @@ class Validating
 	static function validBirthYear($text) {
 		if (!preg_match("/^\d{4}$/", $text))
 			return false;
-		if ($text < 1900 || $text > MAXIMAL_BIRTH_YEAR)
+		if ($text < 1900 || $text > MINIMAL_BIRTH_YEAR)
 			return false;
 		return true;
 	}

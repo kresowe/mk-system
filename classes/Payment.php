@@ -102,7 +102,7 @@ class Payment {
 					$to_print .= self::printTransferInstruction();
 				}
 				else {
-					$to_print .= self::printLatePayMessage(MIKRO_NOR);
+					$to_print .= self::printLatePayMessage(FIT_NOR);
 				}
 			}
 

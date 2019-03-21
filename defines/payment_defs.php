@@ -23,6 +23,6 @@ define("NR_START", 10);	//cena samego nru startowego, gdy ktos ma juz chip
 define("NR_START_EUR", 2);
 define("PAKIET_EUR", 9);
 define("ZWROT_EUR", 7);
-define("DNI_PRZED_KONIEC_ULGI", 6);	// tyle dni przed maratonem koniec cen ulgowych
+define("DNI_PRZED_KONIEC_ULGI", 7);	// tyle dni przed maratonem koniec cen ulgowych
 
 ?>

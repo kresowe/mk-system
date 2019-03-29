@@ -276,6 +276,8 @@ class DBGetter {
 			$column_name = "minidist";
 		} else if ($type_id == 4) {
 			$column_name = "polmaratondist";
+		} else if ($type_id == 7) {
+			$column_name = "fitdist";
 		} else {
 			$db->close();
 			return 0.0;
